@@ -9,27 +9,20 @@ import java.util.Date;
  *
  */
 public class Schedule {
-	private int scheduleid;
-	private int userid;
+	private int id;
 	private Date date;
 	private String items;
 	private String notes;
 	
 	// get & set
-	public int getScheduleid() {
-		return scheduleid;
-	}
-	public void setScheduleid(int scheduleid) {
-		this.scheduleid = scheduleid;
-	}
-	public int getUserid() {
-		return userid;
-	}
-	public void setUserid(int userid) {
-		this.userid = userid;
+	public int getId() {
+		return id;
 	}
 	public Date getDate() {
 		return date;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 	public void setDate(Date date) {
 		this.date = date;

@@ -4,8 +4,10 @@
 	"http://struts.apache.org/dtds/struts-2.3.dtd">
 
 <struts>
-
-    <constant name="struts.enable.DynamicMethodInvocation" value="false" />
+	<!-- 指定全局国际化资源文件 -->
+	<constant name="struts.custom.i18n.resources" value="mess" />
+	<constant name="struts.multipart.maxSize" value="5242880"/> 
+    <constant name="struts.enable.DynamicMethodInvocation" value="true" />
     <constant name="struts.devMode" value="true" />
 
     <package name="default" namespace="/" extends="struts-default">
@@ -28,14 +30,75 @@
         </action>
     </package>
     
+    <!-- user -->
 	<package name="user" namespace="/user" extends="struts-default">
 		<action name="show">
-			<result>/Login/user_login.jsp</result>
+			<result>/User/user_login.jsp</result>
 		</action>
-		
-		
+		<action name="regist" class="com.tang.action.RegistAction">
+			<result name="success">/User/user_login.jsp</result>
+			<result name="error">/User/user_regist.jsp</result>
+		</action>
+		<action name="login" class="com.tang.action.LoginAction">
+			<result name="success">../main.jsp</result>
+			<result name="error">/User/user_login.jsp</result>
+		</action>	
 	</package>
-
+	
+	<!-- personal -->
+	<package name="personal" namespace="/personal" extends="struts-default">
+		<action name="personal_*" class="com.tang.action.PersonalAction" method="{1}">
+			<result name="show">/Personal/personal_show.jsp</result>
+			<result name="error">/Personal/personal_{1}.jsp</result>
+		</action>
+	</package>
+	
+	<!-- contacts -->
+	<package name="contacts" namespace="/contacts" extends="struts-default">
+		<action name="contacts_*" class="com.tang.action.ContactsAction" method="{1}">
+			<result name="{1}">/Contacts/contacts_{1}.jsp</result>
+		</action>
+	</package>
+	
+	<!-- schedule -->
+	<package name="schedule" namespace="/schedule" extends="struts-default">
+		<action name="schedule_*" class="com.tang.action.ScheduleAction" method="{1}">
+			<result name="show">/Schedule/schedule_show.jsp</result>
+			<result name="modify">/Schedule/schedule_modify.jsp</result>
+			<result name="error">/Schedule/schedule_{1}.jsp</result>
+		</action>
+	</package>
+	
+	<!-- files -->
+	<package name="files" namespace="/files" extends="struts-default">
+		<action name="files_*" class="com.tang.action.FilesAction" method="{1}">
+			<!-- 文件上传拦截器 -->
+			<interceptor-ref name="fileUpload">
+				<!-- 配置允许上传的类型 -->
+				<!-- 配置允许上传的文件大小单个文件最大5兆 -->
+				<param name="maximumSize">5242880</param>
+			</interceptor-ref>
+			<!-- 配置默认的拦截器 -->
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<!-- 文件上传路径 -->
+			<param name="savePath">/upload</param>
+			
+			<result name="show">/Files/files_show.jsp</result>
+			<result name="download">/Files/files_download.jsp</result>
+			<result name="error">/Files/files_{1}.jsp</result>
+		</action>
+		<action name="files_downfile" class="com.tang.action.FilesAction" method="downfile">
+			<result name="success" type="stream">
+				<param name="contentType">application/octet-stream</param>
+				<param name="inputName">downloadStream</param>
+				<param name="contentDisposition">attachment;filename="${filename}"</param>
+				<param name="bufferSize">4096</param>
+			</result>
+		</action>
+	</package>
+	
+		
+	
     <include file="example.xml"/>
 
     <!-- Add packages here -->

@@ -1,5 +1,6 @@
 package com.tang.vo;
 
+import java.io.File;
 import java.util.Date;
 
 /**
@@ -10,12 +11,21 @@ import java.util.Date;
 public class Files {
 	private int filesid;
 	private int userid;
+	private File upload;
 	private String title;
-	private String type;
+	private String uploadContentType; //  文件类型，struts2格式获取类型
+	private String uploadFileName;
 	private String size;
 	private Date date;
+	private String filePath;
 	
 	// get & set
+	public String getUploadFileName() {
+		return uploadFileName;
+	}
+	public void setUploadFileName(String uploadFileName) {
+		this.uploadFileName = uploadFileName;
+	}
 	public int getFilesid() {
 		return filesid;
 	}
@@ -28,29 +38,42 @@ public class Files {
 	public void setUserid(int userid) {
 		this.userid = userid;
 	}
+	public File getUpload() {
+		return upload;
+	}
+	public void setUpload(File upload) {
+		this.upload = upload;
+	}
 	public String getTitle() {
 		return title;
 	}
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public String getType() {
-		return type;
+	public String getUploadContentType() {
+		return uploadContentType;
 	}
-	public void setType(String type) {
-		this.type = type;
+	public void setUploadContentType(String uploadContentType) {
+		this.uploadContentType = uploadContentType;
 	}
 	public String getSize() {
-		return size;
+		return this.size;
 	}
 	public void setSize(String size) {
 		this.size = size;
 	}
 	public Date getDate() {
-		return date;
+		return this.date;
 	}
 	public void setDate(Date date) {
 		this.date = date;
 	}
+	public String getFilePath() {
+		return filePath;
+	}
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
+	
 	
 }

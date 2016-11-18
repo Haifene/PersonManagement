@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE validators PUBLIC
+        "-//Apache Struts//XWork Validator 1.0.3//EN"
+        "http://struts.apache.org/dtds/xwork-validator-1.0.3.dtd">
+        
+<!-- 注册验证 -->
+<validators>
+    <field name="user.name" >
+        <field-validator type="requiredstring" short-circuit="true">
+            <param name="trim">true</param>
+            <message>必须输入用户名</message>
+        </field-validator>  
+    </field>
+    <field name="user.password" >
+        <field-validator type="requiredstring" short-circuit="true">
+       		<param name="trim">true</param>
+            <message>必须输入密码</message>
+        </field-validator>
+         <field-validator type="regex">
+        	<param name="regex"><![CDATA[(\w{4,25})]]></param>
+        	<message>密码只能是数字字母，且长度为4,20位</message>
+        </field-validator>
+    </field>
+    <field name="user.truename" >
+        <field-validator type="requiredstring" short-circuit="true">
+            <param name="trim">true</param>
+            <message>必须输入真实姓名</message>
+        </field-validator>     
+    </field>
+     <field name="user.sex" >
+        <field-validator type="requiredstring" short-circuit="true">
+            <param name="trim">true</param>
+            <message>必须输入性别</message>
+        </field-validator>     
+    </field>
+    <field name="user.nation" >
+        <field-validator type="requiredstring" short-circuit="true">
+            <param name="trim">true</param>
+            <message>必须输入民族</message>
+        </field-validator>
+    </field>
+    <field name="user.phone" >
+        <field-validator type="requiredstring" short-circuit="true">
+            <param name="trim">true</param>
+            <message>必须输入电话</message>
+        </field-validator>  
+         <field-validator type="regex" short-circuit="true">
+            <param name="regex"><![CDATA[(\d{1,14})]]></param>
+            <message>电话格式不正确</message>
+        </field-validator>   
+    </field>
+    <field name="user.address" >
+        <field-validator type="requiredstring" short-circuit="true">
+            <param name="trim">true</param>
+            <message>必须输入地址</message>
+        </field-validator>
+    </field>
+    <field name="user.email" >
+        <field-validator type="requiredstring" short-circuit="true">
+            <param name="trim">true</param>
+            <message>必须输入邮件</message>
+        </field-validator>
+        <field-validator type="email" short-circuit="true">
+            <message>邮件格式不正确</message>
+        </field-validator>
+    </field>
+</validators>

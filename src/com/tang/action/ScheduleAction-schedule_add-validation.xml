@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE validators PUBLIC
+        "-//Apache Struts//XWork Validator 1.0.3//EN"
+        "http://struts.apache.org/dtds/xwork-validator-1.0.3.dtd">
+        
+<!-- 增加日程验证 -->
+<validators>
+    <field name="sc.date" >
+        <field-validator type="required" short-circuit="true">
+            <message>必须输入日期</message>
+        </field-validator>
+    </field>
+     <field name="sc.items" >
+        <field-validator type="requiredstring" short-circuit="true">
+       		<param name="trim">true</param>
+            <message>必须输入标题</message>
+        </field-validator>
+    </field>
+</validators>

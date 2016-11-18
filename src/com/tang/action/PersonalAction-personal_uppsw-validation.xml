@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE validators PUBLIC
+        "-//Apache Struts//XWork Validator 1.0.3//EN"
+        "http://struts.apache.org/dtds/xwork-validator-1.0.3.dtd">
+        
+<!-- 修改密码验证 -->
+<validators>
+    <field name="user.password" >
+        <field-validator type="requiredstring" short-circuit="true">
+       		<param name="trim">true</param>
+            <message>必须输入密码</message>
+        </field-validator>
+         <field-validator type="regex">
+        	<param name="regex"><![CDATA[(\w{4,25})]]></param>
+        	<message>密码只能是数字字母，且长度为4,20位</message>
+        </field-validator>
+    </field>
+</validators>
