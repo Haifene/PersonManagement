@@ -23,15 +23,17 @@ public class ScheduleDaoImpl implements ScheduleDao{
 	private PreparedStatement pstmt = null;
 	private ResultSet rs = null;
 	
-	// 找到全部日程
-	public List<Schedule> findAll(String username) {
+	// 找到全部日程(分页)
+	public List<Schedule> findAll(String username, int pageNow, int pageSize) {
 		List<Schedule> list = new ArrayList<Schedule>();
 		conn = DBManager.getConnection();
 		String sql = "SELECT scheduleid,date,items,notes FROM schedule WHERE userid=(" +
-				"SELECT userid FROM user WHERE name=?)";
+				"SELECT userid FROM user WHERE name=?) LIMIT ?,?";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, username);
+			pstmt.setInt(2, (pageNow-1)*pageSize);
+			pstmt.setInt(3, pageSize);
 			rs = pstmt.executeQuery();
 			Schedule sc = null;
 			while(rs.next()){
@@ -129,6 +131,32 @@ public class ScheduleDaoImpl implements ScheduleDao{
 			DBManager.close(conn);	
 		}
 		return flag;
+	}
+	
+	// 获取总的日程数
+	public int numSchedule(String username){
+		int num = 0;
+		conn = DBManager.getConnection();
+		String sql = "SELECT COUNT(*) FROM schedule WHERE userid=?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, UserTool.getUserId(username));
+			rs = pstmt.executeQuery();
+			if(rs.next()){
+				num = rs.getInt(1);
+				System.out.println("此用户日程总数:" + num);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally{
+			DBManager.close(rs);
+			DBManager.close(pstmt);
+			DBManager.close(conn);	
+		}
+		
+		
+		return num;
 	}
 
 }

@@ -20,6 +20,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
 	<link rel="stylesheet" type="text/css" href="css/datedropper.css">
+	<script type="text/javascript" src="js/jquery-1.12.3.min.js"></script>
+	<script type="text/javascript" src="js/regist.js"></script>
   </head>
   
   <body>	
@@ -30,7 +32,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       <th colspan="2">请填写以下信息</th>
     </tr>
     <tr>
-    	<s:textfield name="user.name" label="用户名"/>
+    	<s:hidden name="repeatname"></s:hidden>
+    </tr>
+    <tr>
+    	<s:textfield name="user.name" class="username" label="用户名"/>
     </tr>
     <tr>
       	<s:password name="user.password" label="密码"/>
@@ -70,7 +75,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</s:form>
 	
 	<!-- 日期插件 -->
-    <script type="text/javascript" src="js/jquery-1.12.3.min.js"></script>
 	<script src="js/datedropper.min.js"></script>
 	<script>
 		$("#pickdate").dateDropper({

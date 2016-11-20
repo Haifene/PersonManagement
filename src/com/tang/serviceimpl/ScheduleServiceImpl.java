@@ -15,8 +15,8 @@ import com.tang.vo.Schedule;
 public class ScheduleServiceImpl implements ScheduleService{
 	private ScheduleDao scheduleDao = new ScheduleDaoImpl();
 	// 找到全部的日程
-	public List<Schedule> findAll(String username) {
-		return scheduleDao.findAll(username);
+	public List<Schedule> findAll(String username, int pageNow, int pageSize) {
+		return scheduleDao.findAll(username, pageNow, pageSize);
 	}
 
 	// 增加日程
@@ -32,5 +32,10 @@ public class ScheduleServiceImpl implements ScheduleService{
 	// 删除日程
 	public boolean deleteSchedule(int id){
 		return scheduleDao.deleteSchedule(id);
+	}
+	
+	// 获取总的日程数
+	public int numSchedule(String username){
+		return scheduleDao.numSchedule(username);
 	}
 }

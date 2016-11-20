@@ -16,8 +16,8 @@ public class FilesServiceImpl implements FilesService{
 	private FilesDao filesDao = new FilesDaoImpl();
 
 	// 查找所有文件
-	public List<Files> findAll(String username) {
-		return filesDao.findAll(username);
+	public List<Files> findAll(String username, int pageNow, int pageSize) {
+		return filesDao.findAll(username, pageNow, pageSize);
 	}
 
 	// 上传文件
@@ -28,5 +28,10 @@ public class FilesServiceImpl implements FilesService{
 	// 删除文件
 	public boolean deleteFile(int id){
 		return filesDao.deleteFile(id);
+	}
+	
+	// 此用户文件总数
+	public int numFiles(String username){
+		return filesDao.numFiles(username);
 	}
 }

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Struts2Diagram version="2.0">
+  <package name="default" location="408,1284" size="180,71">
+    <action name="index" location="16,24" size="150,41">
+      <result name="success" />
+    </action>
+  </package>
+  <package name="user" location="78,165" size="805,245">
+    <action name="show" location="556,58" size="150,41">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="user_login.jsp" />
+      </result>
+    </action>
+    <action name="regist" location="556,153" size="150,62">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="user_login.jsp" />
+      </result>
+      <result name="error">
+        <resourceEdge source="error" routing="0" target="user_regist.jsp" />
+      </result>
+    </action>
+    <action name="login" location="311,153" size="150,62">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="main.jsp" />
+      </result>
+      <result name="error">
+        <resourceEdge source="error" routing="0" target="user_login.jsp" />
+      </result>
+    </action>
+    <action name="logout" location="66,163" size="150,41">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="index.jsp" />
+      </result>
+    </action>
+  </package>
+  <package name="personal" location="796,725" size="280,140">
+    <action name="personal_*" location="66,48" size="150,62">
+      <result name="show">
+        <resourceEdge source="show" routing="0" target="personal_show.jsp" />
+      </result>
+      <result name="error">
+        <resourceEdge source="error" routing="0" target="personal_{1}.jsp" />
+      </result>
+    </action>
+  </package>
+  <package name="contacts" location="43,1285" size="280,140">
+    <action name="contacts_*" location="66,58" size="150,41">
+      <result name="{1}">
+        <resourceEdge source="{1}" routing="0" target="contacts_{1}.jsp" />
+      </result>
+    </action>
+  </package>
+  <package name="schedule" location="970,165" size="280,210">
+    <action name="schedule_*" location="66,72" size="150,83">
+      <result name="show">
+        <resourceEdge source="show" routing="0" target="schedule_show.jsp" />
+      </result>
+      <result name="modify">
+        <resourceEdge source="modify" routing="0" target="schedule_modify.jsp" />
+      </result>
+      <result name="error">
+        <resourceEdge source="error" routing="0" target="schedule_{1}.jsp" />
+      </result>
+    </action>
+  </package>
+  <package name="files" location="233,865" size="280,315">
+    <action name="files_*" location="66,72" size="150,83">
+      <result name="show">
+        <resourceEdge source="show" routing="0" target="files_show.jsp" />
+      </result>
+      <result name="download">
+        <resourceEdge source="download" routing="0" target="files_download.jsp" />
+      </result>
+      <result name="error">
+        <resourceEdge source="error" routing="0" target="files_{1}.jsp" />
+      </result>
+    </action>
+    <action name="files_downfile" location="66,233" size="150,41">
+      <result name="success" />
+    </action>
+  </package>
+  <webResource name="user_login.jsp" path="/User/user_login.jsp" location="393,10" size="150,55" />
+  <webResource name="user_regist.jsp" path="/User/user_regist.jsp" location="636,465" size="150,55" />
+  <webResource name="main.jsp" path="../main.jsp" location="413,465" size="150,55" />
+  <webResource name="index.jsp" path="../index.jsp" location="168,465" size="150,55" />
+  <webResource name="personal_show.jsp" path="/Personal/personal_show.jsp" location="841,920" size="150,55" />
+  <webResource name="personal_{1}.jsp" path="/Personal/personal_{1}.jsp" location="1128,745" size="150,55" />
+  <webResource name="contacts_{1}.jsp" path="/Contacts/contacts_{1}.jsp" location="97,1480" size="150,55" />
+  <webResource name="schedule_show.jsp" path="/Schedule/schedule_show.jsp" location="1014,430" size="150,55" />
+  <webResource name="schedule_modify.jsp" path="/Schedule/schedule_modify.jsp" location="1009,10" size="150,55" />
+  <webResource name="schedule_{1}.jsp" path="/Schedule/schedule_{1}.jsp" location="1301,220" size="150,55" />
+  <webResource name="files_show.jsp" path="/Files/files_show.jsp" location="549,920" size="150,55" />
+  <webResource name="files_download.jsp" path="/Files/files_download.jsp" location="10,920" size="150,55" />
+  <webResource name="files_{1}.jsp" path="/Files/files_{1}.jsp" location="312,710" size="150,55" />
+  <include file="example.xml" location="703,1270" size="150,30" />
+</Struts2Diagram>
+

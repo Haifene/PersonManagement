@@ -33,13 +33,15 @@ public class FilesDaoImpl implements FilesDao{
 
 	
 	// 查找所有文件
-	public List<Files> findAll(String username) {
+	public List<Files> findAll(String username, int pageNow, int pageSize) {
 		List<Files> list = new ArrayList<Files>();
 		conn = DBManager.getConnection();
-		String sql = "SELECT filesid, title, uploadContentType, uploadFileName, size, date, filePath FROM files WHERE userid=?";
+		String sql = "SELECT filesid, title, uploadContentType, uploadFileName, size, date, filePath FROM files WHERE userid=? LIMIT ?,?";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, UserTool.getUserId(username));
+			pstmt.setInt(2, (pageNow - 1) * pageSize);
+			pstmt.setInt(3, pageSize);
 			rs = pstmt.executeQuery();
 			Files file = null;
 			while(rs.next()){
@@ -134,6 +136,32 @@ public class FilesDaoImpl implements FilesDao{
 			DBManager.close(conn);
 		}
 		return flag;
+	}
+	
+	// 此用户文件总数
+	public int numFiles(String username){
+		int num = 0;
+		conn = DBManager.getConnection();
+		String sql = "SELECT COUNT(*) FROM files WHERE userid=?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, UserTool.getUserId(username));
+			rs = pstmt.executeQuery();
+			if(rs.next()){
+				num = rs.getInt(1);
+				System.out.println("此用户文件总数:" + num);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally{
+			DBManager.close(rs);
+			DBManager.close(pstmt);
+			DBManager.close(conn);	
+		}
+		
+		
+		return num;
 	}
 
 }

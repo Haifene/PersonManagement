@@ -43,6 +43,9 @@
 			<result name="success">../main.jsp</result>
 			<result name="error">/User/user_login.jsp</result>
 		</action>	
+		<action name="logout" class="com.tang.action.LoginAction" method="logout">
+			<result name="success">../index.jsp</result>
+		</action>
 	</package>
 	
 	<!-- personal -->

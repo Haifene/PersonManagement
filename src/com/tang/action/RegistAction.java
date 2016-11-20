@@ -2,7 +2,6 @@ package com.tang.action;
 
 import org.apache.struts2.ServletActionContext;
 
-import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.interceptor.annotations.InputConfig;
 import com.tang.service.RegistService;
@@ -27,18 +26,21 @@ public class RegistAction extends ActionSupport{
 		if(service.regist(user)){
 			return SUCCESS;
 		}
-		
-		
 		return ERROR;
 	}
 	
-	@Override
 	public void validate() {	
 		// 验证密码，确认密码是否一致
 		String confirmpsw = ServletActionContext.getRequest().getParameter("confirmpsw");
 		if(!confirmpsw.equals(user.getPassword())){
 			addFieldError("confirmpsw", "密码必须一致");
 		}
+		
+		// 验证重名
+		if(service.isRepeat(user.getName())){
+			addFieldError("user.name", "用户名重复");
+		}
+
 	}
 	
 	// get & set
@@ -48,4 +50,5 @@ public class RegistAction extends ActionSupport{
 	public void setUser(User user) {
 		this.user = user;
 	}
+
 }

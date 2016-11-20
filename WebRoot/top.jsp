@@ -11,6 +11,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <td align="center" bgcolor="#FFCC33" class="font"><a href="contacts/contacts_show">通讯录管理</a></td>
     <td align="center" bgcolor="#FFCC33" class="font"><a href="schedule/schedule_show">日程安排管理</a></td>
     <td align="center" bgcolor="#FFCC33" class="font"><a href="files/files_show">个人文件管理</a></td>
-    <td align="center" bgcolor="#FFCC33" class="font"><a href="user/user_logout">退出系统</a></td>
+    <td align="center" bgcolor="#FFCC33" class="font"><a href="user/logout">退出系统</a></td>
   </tr>
 </table>

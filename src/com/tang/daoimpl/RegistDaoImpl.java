@@ -56,8 +56,27 @@ public class RegistDaoImpl implements RegistDao{
 		return flag;
 	}
 	
-	
-
-	
+	// 验证重名
+	public boolean isRepeat(String username){
+		boolean flag = false;
+		conn = DBManager.getConnection();
+		String sql = "SELECT COUNT(*) FROM user WHERE name=?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, username);
+			if(pstmt.executeQuery().next()){
+				flag = true;
+				System.out.println("用户名重复");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally{
+			// 关闭数据库
+			DBManager.close(pstmt);
+			DBManager.close(conn);
+		}
+		return flag;
+	}
 	
 }

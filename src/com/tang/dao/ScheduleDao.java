@@ -11,7 +11,7 @@ import com.tang.vo.Schedule;
  */
 public interface ScheduleDao {
 	// 获取全部日程
-	List<Schedule> findAll(String username);
+	List<Schedule> findAll(String username, int pageNow, int pageSize);
 	
 	// 增加日程
 	boolean addSchedule(Schedule sc, String username);
@@ -21,4 +21,7 @@ public interface ScheduleDao {
 	
 	// 删除日程
 	boolean deleteSchedule(int id);
+	
+	// 获取总的日程数
+	int numSchedule(String username);
 }

@@ -1,5 +1,7 @@
 package com.tang.action;
 
+import org.apache.struts2.ServletActionContext;
+
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.tang.service.LoginService;
@@ -29,6 +31,11 @@ public class LoginAction extends ActionSupport{
 			addFieldError("loginError", "用户名或者密码错误");
 			return ERROR;
 		}
+	}
+	
+	public String logout() throws Exception{
+		ActionContext.getContext().getSession().remove("user");
+		return SUCCESS;
 	}
 	
 	

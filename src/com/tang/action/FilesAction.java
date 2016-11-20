@@ -16,6 +16,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.interceptor.annotations.InputConfig;
 import com.tang.service.FilesService;
 import com.tang.serviceimpl.FilesServiceImpl;
+import com.tang.tool.MathTool;
 import com.tang.vo.Files;
 import com.tang.vo.User;
 
@@ -37,9 +38,15 @@ public class FilesAction extends ActionSupport{
 	private String username = ((User) ActionContext.getContext()
 			.getSession().get("user")).getName(); // 获取当前用户名
 	
+	private int pageNow = 1; // 当前页码
+	private int numItems = service.numFiles(username);  // 记录总数
+	private int pageSize = 5; // 每页显示记录数
+	private int lastPage = MathTool.getMaxInt(numItems, pageSize); // 最大页数
+	
+	
 	// 展示所有文件
 	public String show()throws Exception{
-		filesList = service.findAll(username);
+		filesList = service.findAll(username, pageNow, pageSize);
 		return "show";
 	}
 	
@@ -47,17 +54,18 @@ public class FilesAction extends ActionSupport{
 	@InputConfig(resultName="error")
 	public String upload() throws Exception{
 		if(service.uploadFile(files, username, getSavePath())){
-			filesList = service.findAll(username);
+			filesList = service.findAll(username, pageNow, pageSize);
 			return "show";
 		}
 		return "error";
+	
 		
 	}
 	
 	// 展示所有要编辑的文件
 	@InputConfig(resultName="error")
 	public String download() throws Exception{
-		filesList = service.findAll(username);
+		filesList = service.findAll(username, pageNow, pageSize);
 		return "download";
 	}
 	
@@ -66,7 +74,7 @@ public class FilesAction extends ActionSupport{
 	public String delete() throws Exception{
 		String deleteid = ServletActionContext.getRequest().getParameter("deleteid");
 		if(service.deleteFile(Integer.parseInt(deleteid))){
-			filesList = service.findAll(username);
+			filesList = service.findAll(username, pageNow, pageSize);
 			return "download";
 		}
 		return "error";
@@ -107,21 +115,41 @@ public class FilesAction extends ActionSupport{
 	public void setSavePath(String savePath) {
 		this.savePath = savePath;
 	}
-
 	public FileInputStream getDownloadStream() {
 		return downloadStream;
 	}
-
 	public void setDownloadStream(FileInputStream downloadStream) {
 		this.downloadStream = downloadStream;
 	}
-
 	public String getFilename() {
 		return filename;
 	}
-
 	public void setFilename(String filename) {
 		this.filename = filename;
+	}
+	public int getPageNow() {
+		return pageNow;
+	}
+	public void setPageNow(int pageNow) {
+		this.pageNow = pageNow;
+	}
+	public int getNumItems() {
+		return numItems;
+	}
+	public void setNumItems(int numItems) {
+		this.numItems = numItems;
+	}
+	public int getPageSize() {
+		return pageSize;
+	}
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
+	}
+	public int getLastPage() {
+		return lastPage;
+	}
+	public void setLastPage(int lastPage) {
+		this.lastPage = lastPage;
 	}
 	
 	

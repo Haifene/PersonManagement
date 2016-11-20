@@ -17,4 +17,8 @@ public class RegistServiceImpl implements RegistService{
 		return registDao.regist(user);
 	}
 
+	// 验证重名
+	public boolean isRepeat(String username){
+		return registDao.isRepeat(username);
+	}
 }

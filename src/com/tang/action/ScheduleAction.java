@@ -9,6 +9,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.interceptor.annotations.InputConfig;
 import com.tang.service.ScheduleService;
 import com.tang.serviceimpl.ScheduleServiceImpl;
+import com.tang.tool.MathTool;
 import com.tang.vo.Schedule;
 import com.tang.vo.User;
 
@@ -25,11 +26,18 @@ public class ScheduleAction extends ActionSupport{
 	private int id; // 正在修改删除的日程
 	
 	private String username = ((User) ActionContext.getContext()
-								.getSession().get("user")).getName(); // 获取当前用户名
+			.getSession().get("user")).getName(); // 获取当前用户名
+	
+	private int pageNow = 1; // 当前页码
+	private int numItems = service.numSchedule(username);  // 记录总数
+	private int pageSize = 5; // 每页显示记录数
+	private int lastPage = MathTool.getMaxInt(numItems, pageSize); // 最大页数
+	
+	
 	
 	// 展示日程
 	public String show() throws Exception{
-		scList = service.findAll(username);
+		scList = service.findAll(username, pageNow, pageSize);
 		return "show";
 	}
 	
@@ -38,7 +46,7 @@ public class ScheduleAction extends ActionSupport{
 	public String add() throws Exception{
 		if(service.addSchedule(sc, username)){
 			// 重新展示
-			scList = service.findAll(username);
+			scList = service.findAll(username, pageNow, pageSize);
 			return "show";
 		}
 		
@@ -48,7 +56,7 @@ public class ScheduleAction extends ActionSupport{
 	
 	// 展示编辑的日程
 	public String modify() throws Exception{
-		scList = service.findAll(username);
+		scList = service.findAll(username, pageNow, pageSize);
 		return "modify";
 	}
 	
@@ -56,7 +64,7 @@ public class ScheduleAction extends ActionSupport{
 	@InputConfig(resultName="error")
 	public String update() throws Exception{
 		if(service.updateSchedule(id, sc)){
-			scList = service.findAll(username);
+			scList = service.findAll(username, pageNow, pageSize);
 			return "modify";
 		}
 		return "error";
@@ -66,7 +74,7 @@ public class ScheduleAction extends ActionSupport{
 	public String delete() throws Exception{
 		String deleteid = ServletActionContext.getRequest().getParameter("deleteid");
 		if(service.deleteSchedule(Integer.parseInt(deleteid))){
-			scList = service.findAll(username);
+			scList = service.findAll(username, pageNow, pageSize);
 			return "modify";
 		}
 		return "error";
@@ -92,6 +100,31 @@ public class ScheduleAction extends ActionSupport{
 	public void setId(int id) {
 		this.id = id;
 	}
+	public int getPageNow() {
+		return pageNow;
+	}
+	public void setPageNow(int pageNow) {
+		this.pageNow = pageNow;
+	}
+	public int getNumItems() {
+		return numItems;
+	}
+	public void setNumItems(int numItems) {
+		this.numItems = numItems;
+	}
+	public int getPageSize() {
+		return pageSize;
+	}
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
+	}
+	public int getLastPage() {
+		return lastPage;
+	}
+	public void setLastPage(int lastPage) {
+		this.lastPage = lastPage;
+	}
+	
 	
 	
 }

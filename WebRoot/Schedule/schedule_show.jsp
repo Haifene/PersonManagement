@@ -56,6 +56,35 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			</tr>
     		</s:iterator>
     	</table>
+    	
+    	<!-- 分页模块 -->
+    	<s:url var="url_pageNow" value="schedule/schedule_show">
+   		<s:param name="pageNow" value="pageNow"/>
+   		</s:url>
+    	<s:url var="url_next" value="schedule/schedule_show">
+   		<s:param name="pageNow" value="pageNow+1"/>
+   		</s:url>
+   		<s:url var="url_pre" value="schedule/schedule_show">
+   			<s:param name="pageNow" value="pageNow-1"/>
+   		</s:url>
+   		<span style="color:grey;font-size:14px;">
+   		共<s:property value="numItems"/>条记录&nbsp;&nbsp;
+   		当前第<s:property value="pageNow"/>页
+   		</span>
+   		&nbsp;&nbsp;
+   		<s:if test="pageNow==1">
+   			<s:a href="%{url_pageNow}">首页</s:a>
+   		</s:if>
+   		<s:else>
+   			<s:a href="%{url_pre}">上一页</s:a>
+   		</s:else>
+   		&nbsp;&nbsp;
+   		<s:if test="pageNow==lastPage">
+   			<s:a href="%{url_pageNow}">尾页</s:a>
+   		</s:if>
+   		<s:else>
+   			<s:a href="%{url_next}">下一页</s:a>
+   		</s:else>
     	</div>
     </td>
   </tr>
